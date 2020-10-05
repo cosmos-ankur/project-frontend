@@ -7,9 +7,11 @@ import Signup from './containers/Signup';
 import Signin from './containers/Signin';
 import PrivateRoute from './components/HOC/PrivateRoute'
 import { useSelector , useDispatch} from 'react-redux';
-import {isUserLoggedin} from './actions'
+import {getAllCategory, isUserLoggedin} from './actions'
 import Products from './containers/Products';
 import Orders from './containers/Orders';
+import Category from './containers/Category';
+import { getInitialData } from './actions/initialData.action';
 
 
 
@@ -20,6 +22,7 @@ function App() {
     if(!auth.authenticate){
         dispatch(isUserLoggedin());
     }
+    dispatch(getInitialData());
     
 },[]);
   return (
@@ -27,6 +30,7 @@ function App() {
     
       <Switch>
         <PrivateRoute Route path = '/'  exact component = {Home} />
+        <PrivateRoute Route path ='/category' component = {Category}/>
         <PrivateRoute path="/products" component={Products}/>
         <PrivateRoute path="/orders" component={Orders}/>
         <Route path = '/signin' component = {Signin} />
